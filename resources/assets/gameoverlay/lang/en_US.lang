@@ -1,0 +1,27 @@
+# Keys
+
+keys.gameoverlay.category=In game Overlay
+keys.gameoverlay.menu=In game Options
+keys.gameoverlay.creativeinv=Creative Menu
+keys.gameoverlay.maptoggle=Toggle Map Type
+keys.gameoverlay.maptoggleback=Toggle Map Type backwards
+keys.gameoverlay.csvsave=Save Shops as CSV
+keys.gameoverlay.savechunk=Save marked region as schematic
+keys.gameoverlay.makro1=MakroKey 1
+keys.gameoverlay.makro2=MakroKey 2
+keys.gameoverlay.makro3=MakroKey 3
+keys.gameoverlay.makro4=MakroKey 4
+keys.gameoverlay.makro5=MakroKey 5
+keys.gameoverlay.makro6=MakroKey 6
+keys.gameoverlay.makro7=MakroKey 7
+keys.gameoverlay.makro8=MakroKey 8
+keys.gameoverlay.makro9=MakroKey 9
+keys.gameoverlay.togglegamma=Toggle Gamma
+keys.gameoverlay.typetoggle=Toggle Map Background
+button.gameoverlay.angelbot=Angelbot
+button.gameoverlay.map=Minimap
+button.gameoverlay.lightoverlay=Lightoverlay
+button.gameoverlay.makros=Makros
+button.gameoverlay.schematic=Schematic
+button.gameoverlay.shopexport=CSV Shopschild export
+button.gameoverlay.ingameoverlay=IngameOverlay

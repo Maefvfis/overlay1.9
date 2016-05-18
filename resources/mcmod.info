@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ingameoverlay",
+  "name": "In game Overlay",
+  "description": "Extrem geiler Mod!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["StrikerBAY, Maefvfis"],
+  "credits": "THX an alle Benutzer!",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
