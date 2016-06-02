@@ -9,15 +9,12 @@ import net.minecraft.item.ItemStack;
 public class RecipesWeapons
 {
     private String[][] recipePatterns = new String[][] {{"X", "X", "#"}};
-    private Object[][] recipeItems;
-    private static final String __OBFID = "CL_00000097";
+    private Object[][] recipeItems = new Object[][] {{Blocks.PLANKS, Blocks.COBBLESTONE, Items.IRON_INGOT, Items.DIAMOND, Items.GOLD_INGOT}, {Items.WOODEN_SWORD, Items.STONE_SWORD, Items.IRON_SWORD, Items.DIAMOND_SWORD, Items.GOLDEN_SWORD}};
 
-    public RecipesWeapons()
-    {
-        this.recipeItems = new Object[][] {{Blocks.planks, Blocks.cobblestone, Items.iron_ingot, Items.diamond, Items.gold_ingot}, {Items.wooden_sword, Items.stone_sword, Items.iron_sword, Items.diamond_sword, Items.golden_sword}};
-    }
-
-    public void addRecipes(CustomCraftingManager p_77583_1_)
+    /**
+     * Adds the weapon recipes to the CraftingManager.
+     */
+    public void addRecipes(CustomCraftingManager manager)
     {
         for (int i = 0; i < this.recipeItems[0].length; ++i)
         {
@@ -26,11 +23,12 @@ public class RecipesWeapons
             for (int j = 0; j < this.recipeItems.length - 1; ++j)
             {
                 Item item = (Item)this.recipeItems[j + 1][i];
-                p_77583_1_.addRecipe(new ItemStack(item), new Object[] {this.recipePatterns[j], '#', Items.stick, 'X', object});
+                manager.addRecipe(new ItemStack(item), new Object[] {this.recipePatterns[j], '#', Items.STICK, 'X', object});
             }
         }
 
-        p_77583_1_.addRecipe(new ItemStack(Items.bow, 1), new Object[] {" #X", "# X", " #X", 'X', Items.string, '#', Items.stick});
-        p_77583_1_.addRecipe(new ItemStack(Items.arrow, 4), new Object[] {"X", "#", "Y", 'Y', Items.feather, 'X', Items.flint, '#', Items.stick});
+        manager.addRecipe(new ItemStack(Items.BOW, 1), new Object[] {" #X", "# X", " #X", 'X', Items.STRING, '#', Items.STICK});
+        manager.addRecipe(new ItemStack(Items.ARROW, 4), new Object[] {"X", "#", "Y", 'Y', Items.FEATHER, 'X', Items.FLINT, '#', Items.STICK});
+        manager.addRecipe(new ItemStack(Items.SPECTRAL_ARROW, 2), new Object[] {" # ", "#X#", " # ", 'X', Items.ARROW, '#', Items.GLOWSTONE_DUST});
     }
 }

@@ -1,5 +1,7 @@
 package de.maefvfis.gameoverlay.client.crafting.recipes;
 
+import javax.annotation.Nullable;
+
 import de.maefvfis.gameoverlay.client.crafting.CustomInventoryCrafting;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -33,4 +35,8 @@ public interface IRecipe
 
 
 	ItemStack[] getRemainingItems(CustomInventoryCrafting p_180303_1_);
+	
+	
+
+	
 }

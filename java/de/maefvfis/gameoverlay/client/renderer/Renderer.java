@@ -116,7 +116,7 @@ public class Renderer {
 			IBlockState state = this.minecraft.theWorld.getBlockState(new BlockPos(blockPos.x, blockPos.y, blockPos.z));
 			block = state.getBlock();
 			if (block != null) {
-				if (block == Blocks.snow || block == Blocks.wooden_pressure_plate || block == Blocks.stone_pressure_plate || block == Blocks.light_weighted_pressure_plate || block == Blocks.heavy_weighted_pressure_plate) {
+				if (block == Blocks.SNOW || block == Blocks.WOODEN_PRESSURE_PLATE || block == Blocks.STONE_PRESSURE_PLATE || block == Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE || block == Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE) {
 					delta = (float) state.getSelectedBoundingBox(this.minecraft.theWorld, new BlockPos(blockPos.x, blockPos.y, blockPos.z)).maxY;
 				}
 			}

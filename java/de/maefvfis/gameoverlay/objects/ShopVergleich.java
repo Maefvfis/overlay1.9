@@ -34,7 +34,7 @@ public class ShopVergleich {
                 iblockstate = iblockstate.getBlock().getActualState(iblockstate, mc.theWorld, blockpos);
             }
             
-            if(String.valueOf(Block.blockRegistry.getNameForObject(iblockstate.getBlock())).equalsIgnoreCase("minecraft:wall_sign") || String.valueOf(Block.blockRegistry.getNameForObject(iblockstate.getBlock())).equalsIgnoreCase("minecraft:standing_sign")) {
+            if(String.valueOf(Block.REGISTRY.getNameForObject(iblockstate.getBlock())).equalsIgnoreCase("minecraft:wall_sign") || String.valueOf(Block.REGISTRY.getNameForObject(iblockstate.getBlock())).equalsIgnoreCase("minecraft:standing_sign")) {
 
             	
             	

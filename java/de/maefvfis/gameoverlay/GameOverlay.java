@@ -17,6 +17,7 @@ import de.maefvfis.gameoverlay.client.handler.MainTick;
 import de.maefvfis.gameoverlay.client.handler.OverlayEventHandler;
 import de.maefvfis.gameoverlay.client.handler.SchematicSelect;
 import de.maefvfis.gameoverlay.client.handler.SoundHandler;
+import de.maefvfis.gameoverlay.client.mapcolors.ColorObj;
 import de.maefvfis.gameoverlay.handler.ConfigurationHandler;
 import de.maefvfis.gameoverlay.objects.CraftingBenchManager;
 import de.maefvfis.gameoverlay.objects.CraftingBenchManagerNeu;
@@ -32,7 +33,7 @@ public class GameOverlay {
 	
     @Mod.Instance(Reference.MOD_ID)
     public static GameOverlay instance;
-
+    public static ColorObj colorObj = new ColorObj();
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
     public static IProxy proxy;
 
@@ -55,6 +56,8 @@ public class GameOverlay {
         
         MinecraftForge.EVENT_BUS.register(new OverlayEventHandler());
         
+       
+        
     }
 
     @Mod.EventHandler
@@ -69,7 +72,7 @@ public class GameOverlay {
         MinecraftForge.EVENT_BUS.register(new SchematicSelect());
         
         LogHelper.info("INIT ist durch .........................................");
-        
+        MinecraftForge.EVENT_BUS.register(colorObj);
         
         //MinecraftForge.EVENT_BUS.register(new SoundHandler());
     }

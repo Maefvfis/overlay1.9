@@ -125,7 +125,7 @@ public class SchematicSave {
 	 public static boolean writeToNBT(NBTTagCompound tagCompound, Schematic schematic) {
 		
 	        NBTTagCompound tagCompoundIcon = new NBTTagCompound();
-	        ItemStack icon = new ItemStack(Blocks.grass);
+	        ItemStack icon = new ItemStack(Blocks.GRASS);
 	        
 	        icon.writeToNBT(tagCompoundIcon);
 	        
@@ -180,7 +180,7 @@ public class SchematicSave {
 	                    Block block = blockState.getBlock();
 	                    //Reference.logger.error("Block {}[{}] with TileEntity {} failed to save! Replacing with bedrock...", block, block != null ? BLOCK_REGISTRY.getNameForObject(block) : "?", tileEntity.getClass().getName(), e);
 	                }
-	                localBlocks[index] = (byte) BLOCK_REGISTRY.getId(Blocks.bedrock);
+	                localBlocks[index] = (byte) BLOCK_REGISTRY.getId(Blocks.BEDROCK);
 	                localMetadata[index] = 0;
 	                extraBlocks[index] = 0;
 	            }

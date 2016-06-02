@@ -10,14 +10,19 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import de.maefvfis.gameoverlay.GameOverlay;
+import de.maefvfis.gameoverlay.client.mapcolors.ChunkRender;
+import de.maefvfis.gameoverlay.client.mapcolors.Render;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkCoordIntPair;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 
 public class ChunkImage {
@@ -64,10 +69,11 @@ public class ChunkImage {
 			return -1; 
 		}
 		return cData.TextureID;
-		
 	}
 	
 
+	
+	
 	
 	public static void CreateChunkData() {
 		
@@ -79,28 +85,28 @@ public class ChunkImage {
 				mapcolor = getMapColor();
 				
 				
-				LightSteps = 10;
-				ShadowSteps = 10;
-				SaturationSteps = 30;
+				LightSteps = 50;
+				ShadowSteps = 50;
+				SaturationSteps = 100;
 				
-				mapcolor = addLightning(1,0);
-				mapcolor = addLightning(0,1);
-				mapcolor = addLightning(1,1);
-				
-				LightSteps = LightSteps * 2;
-				ShadowSteps = ShadowSteps * 2;
-				SaturationSteps = SaturationSteps * 2;
-				
-				mapcolor = addLightning(2,1);
-				mapcolor = addLightning(1,2);
+				//mapcolor = addLightning(1,0);
+				//mapcolor = addLightning(0,1);
+				//mapcolor = addLightning(1,1);
 				
 				LightSteps = LightSteps * 2;
 				ShadowSteps = ShadowSteps * 2;
 				SaturationSteps = SaturationSteps * 2;
 				
-				mapcolor = addLightning(2,0);
-				mapcolor = addLightning(0,2);
-				mapcolor = addLightning(2,2);
+				//mapcolor = addLightning(2,1);
+				//mapcolor = addLightning(1,2);
+				
+				LightSteps = LightSteps * 2;
+				ShadowSteps = ShadowSteps * 2;
+				SaturationSteps = SaturationSteps * 2;
+				
+				//mapcolor = addLightning(2,0);
+				//mapcolor = addLightning(0,2);
+				//mapcolor = addLightning(2,2);
 				
 	
 
@@ -115,47 +121,47 @@ public class ChunkImage {
 	public static int getMapColor() {
 		
 		int j4 = chunk.getHeightValue(rX, rZ) + 1;
-        IBlockState iblockstate = Blocks.air.getDefaultState();
-
-        if (j4 > 1)
+        IBlockState iblockstate = Blocks.AIR.getDefaultState();
+        
+        int h = j4;
+        if (h > 1)
         {
             do
             {
-                --j4;
-                iblockstate = chunk.getBlockState(new BlockPos(rX, j4, rZ));
+                --h;
+                iblockstate = chunk.getBlockState(new BlockPos(rX, h, rZ));
             }
-            while (iblockstate.getBlock().getMapColor(iblockstate) == MapColor.airColor && j4 > 0);
+            
+            
+            while (iblockstate.getBlock().getMapColor(iblockstate) == MapColor.AIR && h > 0);
 
-            if (j4 > 0 && iblockstate.getBlock().getMaterial(iblockstate).isLiquid())
-            {
-                int k4 = j4 - 1;
-                Block block;
-            }
         }
 
-        y = j4 +1;
-        return iblockstate.getBlock().getMapColor(iblockstate).colorValue;
+        y = h +1;
+        
+        
+        
+        ChunkPos chunkChoord = chunk.getChunkCoordIntPair();
+		BlockPos blockN = new BlockPos(chunkChoord.getXStart() + rX + 1 ,0, chunkChoord.getZStart() + rZ);
+		BlockPos blockW = new BlockPos(chunkChoord.getXStart() + rX ,0, chunkChoord.getZStart() + rZ + 1);
+		Chunk chunkN = mc.theWorld.getChunkFromBlockCoords(blockN);
+		Chunk chunkW = mc.theWorld.getChunkFromBlockCoords(blockW);
+		if(!chunkN.isLoaded() || !chunkW.isLoaded()) { return ChunkRender.getColumnColour(GameOverlay.colorObj.blockColours, chunk, rX, j4, rZ,0,0);  }
+		
+		int yN = chunkN.getHeight(blockN);
+		int yW = chunkN.getHeight(blockW);
+        
+		return ChunkRender.getColumnColour(GameOverlay.colorObj.blockColours, chunk, rX, 70, rZ,yW,yN);
+        //return GameOverlay.colorObj.blockColours.getColour(iblockstate);
+        //return ChunkRender.getColumnColour(GameOverlay.colorObj.blockColours, chunk, rX, j4, rZ,0,0);
+
 	}
 	
-	private static class stoneColor {
-		static MapColor MapColorObj2;
-		static int getColorbyMeta(int meta) {
-			if(meta == 1 || meta == 9) {
-				return MapColorObj2.sandColor.colorValue;
-			}
-			if(meta == 15 || meta == 7) {
-				return MapColorObj2.quartzColor.colorValue;
-			}
-			if(meta == 14 || meta == 12 || meta == 6 || meta == 4) {
-				return MapColorObj2.netherrackColor.colorValue;
-			}
-			return MapColorObj2.stoneColor.colorValue;
-		}
-	}
+
 	
 	public static int addLightning(int x,int z) {
 		
-		ChunkCoordIntPair chunkChoord = chunk.getChunkCoordIntPair();
+		ChunkPos chunkChoord = chunk.getChunkCoordIntPair();
 		BlockPos block = new BlockPos(chunkChoord.getXStart() + rX + x ,0, chunkChoord.getZStart() + rZ + z);
 		Chunk chunk2 = mc.theWorld.getChunkFromBlockCoords(block);
 		if(!chunk2.isLoaded()) { return mapcolor;  }

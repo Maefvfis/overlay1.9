@@ -82,7 +82,8 @@ public class CustomInventoryCrafting implements IInventory
      */
     public ItemStack removeStackFromSlot(int index)
     {
-        return ItemStackHelper.func_188383_a(this.stackList, index);
+    	return null;
+        //return ItemStackHelper.func_188383_a(this.stackList, index);
     }
 
     /**
@@ -90,14 +91,7 @@ public class CustomInventoryCrafting implements IInventory
      */
     public ItemStack decrStackSize(int index, int count)
     {
-        ItemStack itemstack = ItemStackHelper.func_188382_a(this.stackList, index, count);
-
-        if (itemstack != null)
-        {
-            this.eventHandler.onCraftMatrixChanged(this);
-        }
-
-        return itemstack;
+    	return null;
     }
 
     /**

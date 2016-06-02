@@ -35,7 +35,7 @@ public class KeyInputEventHandler {
     private static Key getPressedKeybinding()
     {
     	// Click geräusch bei gedrücktem KeyBind
-    	for(KeyBinding k:Keybindings.getKeyBindListe()) { if(k.isKeyDown()) {  mc.thePlayer.playSound(SoundEvents.ui_button_click, 0.15F, 1.0F); break; } }
+    	for(KeyBinding k:Keybindings.getKeyBindListe()) { if(k.isKeyDown()) {  mc.thePlayer.playSound(SoundEvents.UI_BUTTON_CLICK, 0.15F, 1.0F); break; } }
     	
     	// Aktionen
     	if(Keybindings.menu.isPressed()) mc.displayGuiScreen(new ModGuiConfig(mc.currentScreen));

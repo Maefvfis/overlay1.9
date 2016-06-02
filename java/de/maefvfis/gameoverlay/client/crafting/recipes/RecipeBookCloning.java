@@ -1,7 +1,8 @@
 package de.maefvfis.gameoverlay.client.crafting.recipes;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.init.Items;
-import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemWrittenBook;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,20 +11,21 @@ import de.maefvfis.gameoverlay.client.crafting.CustomInventoryCrafting;
 
 public class RecipeBookCloning implements IRecipe
 {
-    private static final String __OBFID = "CL_00000081";
-
-    public boolean matches(CustomInventoryCrafting p_77569_1_, World worldIn)
+    /**
+     * Used to check if a recipe matches current crafting inventory
+     */
+    public boolean matches(CustomInventoryCrafting inv, World worldIn)
     {
         int i = 0;
         ItemStack itemstack = null;
 
-        for (int j = 0; j < p_77569_1_.getSizeInventory(); ++j)
+        for (int j = 0; j < inv.getSizeInventory(); ++j)
         {
-            ItemStack itemstack1 = p_77569_1_.getStackInSlot(j);
+            ItemStack itemstack1 = inv.getStackInSlot(j);
 
             if (itemstack1 != null)
             {
-                if (itemstack1.getItem() == Items.written_book)
+                if (itemstack1.getItem() == Items.WRITTEN_BOOK)
                 {
                     if (itemstack != null)
                     {
@@ -34,7 +36,7 @@ public class RecipeBookCloning implements IRecipe
                 }
                 else
                 {
-                    if (itemstack1.getItem() != Items.writable_book)
+                    if (itemstack1.getItem() != Items.WRITABLE_BOOK)
                     {
                         return false;
                     }
@@ -47,18 +49,22 @@ public class RecipeBookCloning implements IRecipe
         return itemstack != null && i > 0;
     }
 
-    public ItemStack getCraftingResult(CustomInventoryCrafting p_77572_1_)
+    /**
+     * Returns an Item that is the result of this recipe
+     */
+    @Nullable
+    public ItemStack getCraftingResult(CustomInventoryCrafting inv)
     {
         int i = 0;
         ItemStack itemstack = null;
 
-        for (int j = 0; j < p_77572_1_.getSizeInventory(); ++j)
+        for (int j = 0; j < inv.getSizeInventory(); ++j)
         {
-            ItemStack itemstack1 = p_77572_1_.getStackInSlot(j);
+            ItemStack itemstack1 = inv.getStackInSlot(j);
 
             if (itemstack1 != null)
             {
-                if (itemstack1.getItem() == Items.written_book)
+                if (itemstack1.getItem() == Items.WRITTEN_BOOK)
                 {
                     if (itemstack != null)
                     {
@@ -69,7 +75,7 @@ public class RecipeBookCloning implements IRecipe
                 }
                 else
                 {
-                    if (itemstack1.getItem() != Items.writable_book)
+                    if (itemstack1.getItem() != Items.WRITABLE_BOOK)
                     {
                         return null;
                     }
@@ -81,7 +87,7 @@ public class RecipeBookCloning implements IRecipe
 
         if (itemstack != null && i >= 1 && ItemWrittenBook.getGeneration(itemstack) < 2)
         {
-            ItemStack itemstack2 = new ItemStack(Items.written_book, i);
+            ItemStack itemstack2 = new ItemStack(Items.WRITTEN_BOOK, i);
             itemstack2.setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
             itemstack2.getTagCompound().setInteger("generation", ItemWrittenBook.getGeneration(itemstack) + 1);
 
@@ -98,17 +104,21 @@ public class RecipeBookCloning implements IRecipe
         }
     }
 
+    /**
+     * Returns the size of the recipe area
+     */
     public int getRecipeSize()
     {
         return 9;
     }
 
+    @Nullable
     public ItemStack getRecipeOutput()
     {
         return null;
     }
 
-    public ItemStack[] getRemainingItems(InventoryCrafting inv)
+    public ItemStack[] getRemainingItems(CustomInventoryCrafting inv)
     {
         ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 
@@ -132,12 +142,4 @@ public class RecipeBookCloning implements IRecipe
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public ItemStack[] getRemainingItems(CustomInventoryCrafting p_180303_1_) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
 }

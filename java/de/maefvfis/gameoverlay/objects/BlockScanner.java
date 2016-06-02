@@ -46,7 +46,7 @@ public class BlockScanner {
 		        if(iblockstate == null) continue;
 		        Block block = iblockstate.getBlock();
 		        if(block == null) continue;
-		        if (block == Blocks.air) continue;
+		        if (block == Blocks.AIR) continue;
 		        
 		        int value = isThere(iblockstate,checkArr);
 		        //System.out.println(value);

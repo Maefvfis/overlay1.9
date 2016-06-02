@@ -1,6 +1,8 @@
 package de.maefvfis.gameoverlay.client.crafting.recipes;
 
 
+import javax.annotation.Nullable;
+
 import de.maefvfis.gameoverlay.client.crafting.CustomInventoryCrafting;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -8,20 +10,21 @@ import net.minecraft.world.World;
 
 public class RecipesMapCloning implements IRecipe
 {
-    private static final String __OBFID = "CL_00000087";
-
-    public boolean matches(CustomInventoryCrafting p_77569_1_, World worldIn)
+	/**
+     * Used to check if a recipe matches current crafting inventory
+     */
+    public boolean matches(CustomInventoryCrafting inv, World worldIn)
     {
         int i = 0;
         ItemStack itemstack = null;
 
-        for (int j = 0; j < p_77569_1_.getSizeInventory(); ++j)
+        for (int j = 0; j < inv.getSizeInventory(); ++j)
         {
-            ItemStack itemstack1 = p_77569_1_.getStackInSlot(j);
+            ItemStack itemstack1 = inv.getStackInSlot(j);
 
             if (itemstack1 != null)
             {
-                if (itemstack1.getItem() == Items.filled_map)
+                if (itemstack1.getItem() == Items.FILLED_MAP)
                 {
                     if (itemstack != null)
                     {
@@ -32,7 +35,7 @@ public class RecipesMapCloning implements IRecipe
                 }
                 else
                 {
-                    if (itemstack1.getItem() != Items.map)
+                    if (itemstack1.getItem() != Items.MAP)
                     {
                         return false;
                     }
@@ -45,18 +48,22 @@ public class RecipesMapCloning implements IRecipe
         return itemstack != null && i > 0;
     }
 
-    public ItemStack getCraftingResult(CustomInventoryCrafting p_77572_1_)
+    /**
+     * Returns an Item that is the result of this recipe
+     */
+    @Nullable
+    public ItemStack getCraftingResult(CustomInventoryCrafting inv)
     {
         int i = 0;
         ItemStack itemstack = null;
 
-        for (int j = 0; j < p_77572_1_.getSizeInventory(); ++j)
+        for (int j = 0; j < inv.getSizeInventory(); ++j)
         {
-            ItemStack itemstack1 = p_77572_1_.getStackInSlot(j);
+            ItemStack itemstack1 = inv.getStackInSlot(j);
 
             if (itemstack1 != null)
             {
-                if (itemstack1.getItem() == Items.filled_map)
+                if (itemstack1.getItem() == Items.FILLED_MAP)
                 {
                     if (itemstack != null)
                     {
@@ -67,7 +74,7 @@ public class RecipesMapCloning implements IRecipe
                 }
                 else
                 {
-                    if (itemstack1.getItem() != Items.map)
+                    if (itemstack1.getItem() != Items.MAP)
                     {
                         return null;
                     }
@@ -79,7 +86,7 @@ public class RecipesMapCloning implements IRecipe
 
         if (itemstack != null && i >= 1)
         {
-            ItemStack itemstack2 = new ItemStack(Items.filled_map, i + 1, itemstack.getMetadata());
+            ItemStack itemstack2 = new ItemStack(Items.FILLED_MAP, i + 1, itemstack.getMetadata());
 
             if (itemstack.hasDisplayName())
             {
@@ -94,23 +101,27 @@ public class RecipesMapCloning implements IRecipe
         }
     }
 
+    /**
+     * Returns the size of the recipe area
+     */
     public int getRecipeSize()
     {
         return 9;
     }
 
+    @Nullable
     public ItemStack getRecipeOutput()
     {
         return null;
     }
 
-    public ItemStack[] getRemainingItems(CustomInventoryCrafting p_179532_1_)
+    public ItemStack[] getRemainingItems(CustomInventoryCrafting inv)
     {
-        ItemStack[] aitemstack = new ItemStack[p_179532_1_.getSizeInventory()];
+        ItemStack[] aitemstack = new ItemStack[inv.getSizeInventory()];
 
         for (int i = 0; i < aitemstack.length; ++i)
         {
-            ItemStack itemstack = p_179532_1_.getStackInSlot(i);
+            ItemStack itemstack = inv.getStackInSlot(i);
             aitemstack[i] = net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack);
         }
 

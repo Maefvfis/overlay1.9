@@ -29,7 +29,7 @@ public class SchematicSelect  {
     	if(mc.thePlayer.inventory.getCurrentItem() == null) { return; }
     	if(mc.thePlayer.inventory.getCurrentItem().getItem() == null) { return; }
     	if(mc.objectMouseOver == null || mc.objectMouseOver.typeOfHit != RayTraceResult.Type.BLOCK || mc.objectMouseOver.getBlockPos() == null) { return; }
-    	if(mc.thePlayer.inventory.getCurrentItem().getItem() != Items.stone_axe) { return; }
+    	if(mc.thePlayer.inventory.getCurrentItem().getItem() != Items.STONE_AXE) { return; }
     	
     	BlockPos blockpos = mc.objectMouseOver.getBlockPos();
     	String value = String.valueOf(blockpos.getX()) + "," + String.valueOf(blockpos.getY()) + "," + String.valueOf(blockpos.getZ());

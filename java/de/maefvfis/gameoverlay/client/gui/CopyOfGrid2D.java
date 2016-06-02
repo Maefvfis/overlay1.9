@@ -144,7 +144,7 @@ public class CopyOfGrid2D  extends GuiScreen {
 			    ArrayList<choords> otherChoords = new ArrayList<choords>();
 		    
 			    for(choords choord: choordsList) {
-				    double angle = (-MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) / (180 / Math.PI));
+				    double angle = (-MathHelper.wrapDegrees(mc.thePlayer.rotationYaw) / (180 / Math.PI));
 			    	int x2 =(int) ((X-choord.x) * Math.cos(angle) - (Z-choord.z) * Math.sin(angle));
 			    	int z2 =(int) ((X-choord.x) * Math.sin(angle) + (Z-choord.z) * Math.cos(angle));
 			    	if(!in_radius2(0, 0, 64, x2, z2)) { continue; }
@@ -179,7 +179,7 @@ public class CopyOfGrid2D  extends GuiScreen {
 			    }
 			    
 			    for(choords choord: otherChoords) {
-			    	double angle = (-MathHelper.wrapAngleTo180_float(mc.thePlayer.rotationYaw) / (180 / Math.PI));
+			    	double angle = (-MathHelper.wrapDegrees(mc.thePlayer.rotationYaw) / (180 / Math.PI));
 			    	int x2 =(int) ((X-choord.x) * Math.cos(angle) - (Z-choord.z) * Math.sin(angle));
 			    	int z2 =(int) ((X-choord.x) * Math.sin(angle) + (Z-choord.z) * Math.cos(angle));
 			    	if(Y > choord.y + 1) { mc.renderEngine.bindTexture(mobmarkerLower); }

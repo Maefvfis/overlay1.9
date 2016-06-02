@@ -25,10 +25,10 @@ import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.util.EnumHand;
 
@@ -44,6 +44,13 @@ public class ChunckViewer {
 	
 	private List whitelist = Arrays.asList(ConfigurationHandler.PlayerGridWhitelist.split(","));
 	public WorldClient world = Minecraft.getMinecraft().theWorld;
+	
+	private static List<choords> cachedList = new ArrayList<choords>();
+	private static int tick = 0;
+	private static int triggerTick = 50;
+	
+	
+	
 	
 	public int countEntity(Class<?> instance, Chunk chunk, Boolean IsWither) {
 		int result = 0;
@@ -113,6 +120,9 @@ public class ChunckViewer {
 	}
 	
 	public List<choords> ListLivingEntitys(Chunk chunk) {
+		if(tick < triggerTick) { tick++; return cachedList; }
+		tick = 0;
+		
 		List<choords> result = new ArrayList<choords>();
 		for (Object o : world.loadedEntityList) {
 			if(!(o instanceof EntityLiving) && !(o instanceof EntityPlayer)) continue;
@@ -133,6 +143,7 @@ public class ChunckViewer {
 				continue;
 			}
 		}
+		cachedList = result;
 		return result;
 	}
 	
@@ -211,7 +222,7 @@ public class ChunckViewer {
 	}
 	
 	public boolean is_aligned(Chunk chunk, BlockPos entity) {
-		ChunkCoordIntPair ChunkPos = chunk.getChunkCoordIntPair();
+		ChunkPos ChunkPos = chunk.getChunkCoordIntPair();
 		if(entity.getZ() >= ChunkPos.getZStart() && entity.getZ() <= ChunkPos.getZEnd()) {
 			if(entity.getX() >= ChunkPos.getXStart() && entity.getX() <= ChunkPos.getXEnd()) {
 				return true;

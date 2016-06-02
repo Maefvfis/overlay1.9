@@ -6,9 +6,10 @@ import de.maefvfis.gameoverlay.client.crafting.CustomInventoryCrafting;
 
 import java.util.List;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Items;
-import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
@@ -16,7 +17,7 @@ import net.minecraft.world.World;
 
 public class RecipesArmorDyes implements IRecipe
 {
-    /**
+	 /**
      * Used to check if a recipe matches current crafting inventory
      */
     public boolean matches(CustomInventoryCrafting inv, World worldIn)
@@ -43,7 +44,7 @@ public class RecipesArmorDyes implements IRecipe
                 }
                 else
                 {
-                    if (itemstack1.getItem() != Items.dye)
+                    if (itemstack1.getItem() != Items.DYE)
                     {
                         return false;
                     }
@@ -59,6 +60,7 @@ public class RecipesArmorDyes implements IRecipe
     /**
      * Returns an Item that is the result of this recipe
      */
+    @Nullable
     public ItemStack getCraftingResult(CustomInventoryCrafting inv)
     {
         ItemStack itemstack = null;
@@ -100,7 +102,7 @@ public class RecipesArmorDyes implements IRecipe
                 }
                 else
                 {
-                    if (itemstack1.getItem() != Items.dye)
+                    if (itemstack1.getItem() != Items.DYE)
                     {
                         return null;
                     }
@@ -147,6 +149,7 @@ public class RecipesArmorDyes implements IRecipe
         return 10;
     }
 
+    @Nullable
     public ItemStack getRecipeOutput()
     {
         return null;

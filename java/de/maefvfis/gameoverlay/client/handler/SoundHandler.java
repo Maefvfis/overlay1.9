@@ -10,9 +10,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
@@ -57,7 +57,7 @@ public class SoundHandler {
 		
 		ItemStack itemstack = mc.thePlayer.getHeldItemMainhand();
 
-		if (itemstack == null || itemstack.getItem() != Items.fishing_rod)
+		if (itemstack == null || itemstack.getItem() != Items.FISHING_ROD)
 			return;
 		
 		
@@ -155,7 +155,7 @@ public class SoundHandler {
 		return 0;
 	}
 	public boolean is_aligned(Chunk chunk, BlockPos entity) {
-		ChunkCoordIntPair ChunkPos = chunk.getChunkCoordIntPair();
+		ChunkPos ChunkPos = chunk.getChunkCoordIntPair();
 		if(entity.getZ() >= ChunkPos.getZStart() && entity.getZ() <= ChunkPos.getZEnd()) {
 			if(entity.getX() >= ChunkPos.getXStart() && entity.getX() <= ChunkPos.getXEnd()) {
 				return true;

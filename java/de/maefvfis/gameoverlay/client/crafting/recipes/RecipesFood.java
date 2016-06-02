@@ -8,20 +8,19 @@ import net.minecraft.item.ItemStack;
 
 public class RecipesFood
 {
-    private static final String __OBFID = "CL_00000084";
-
-    public void addRecipes(CustomCraftingManager p_77608_1_)
+	public void addRecipes(CustomCraftingManager manager)
     {
-        p_77608_1_.addShapelessRecipe(new ItemStack(Items.mushroom_stew), new Object[] {Blocks.brown_mushroom, Blocks.red_mushroom, Items.bowl});
-        p_77608_1_.addRecipe(new ItemStack(Items.cookie, 8), new Object[] {"#X#", 'X', new ItemStack(Items.dye, 1, EnumDyeColor.BROWN.getDyeDamage()), '#', Items.wheat});
-        p_77608_1_.addRecipe(new ItemStack(Items.rabbit_stew), new Object[] {" R ", "CPM", " B ", 'R', new ItemStack(Items.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'M', Blocks.brown_mushroom, 'B', Items.bowl});
-        p_77608_1_.addRecipe(new ItemStack(Items.rabbit_stew), new Object[] {" R ", "CPD", " B ", 'R', new ItemStack(Items.cooked_rabbit), 'C', Items.carrot, 'P', Items.baked_potato, 'D', Blocks.red_mushroom, 'B', Items.bowl});
-        p_77608_1_.addRecipe(new ItemStack(Blocks.melon_block), new Object[] {"MMM", "MMM", "MMM", 'M', Items.melon});
-        p_77608_1_.addRecipe(new ItemStack(Items.melon_seeds), new Object[] {"M", 'M', Items.melon});
-        p_77608_1_.addRecipe(new ItemStack(Items.pumpkin_seeds, 4), new Object[] {"M", 'M', Blocks.pumpkin});
-        p_77608_1_.addShapelessRecipe(new ItemStack(Items.pumpkin_pie), new Object[] {Blocks.pumpkin, Items.sugar, Items.egg});
-        p_77608_1_.addShapelessRecipe(new ItemStack(Items.fermented_spider_eye), new Object[] {Items.spider_eye, Blocks.brown_mushroom, Items.sugar});
-        p_77608_1_.addShapelessRecipe(new ItemStack(Items.blaze_powder, 2), new Object[] {Items.blaze_rod});
-        p_77608_1_.addShapelessRecipe(new ItemStack(Items.magma_cream), new Object[] {Items.blaze_powder, Items.slime_ball});
+        manager.addShapelessRecipe(new ItemStack(Items.MUSHROOM_STEW), new Object[] {Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Items.BOWL});
+        manager.addRecipe(new ItemStack(Items.COOKIE, 8), new Object[] {"#X#", 'X', new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()), '#', Items.WHEAT});
+        manager.addRecipe(new ItemStack(Items.RABBIT_STEW), new Object[] {" R ", "CPM", " B ", 'R', new ItemStack(Items.COOKED_RABBIT), 'C', Items.CARROT, 'P', Items.BAKED_POTATO, 'M', Blocks.BROWN_MUSHROOM, 'B', Items.BOWL});
+        manager.addRecipe(new ItemStack(Items.RABBIT_STEW), new Object[] {" R ", "CPD", " B ", 'R', new ItemStack(Items.COOKED_RABBIT), 'C', Items.CARROT, 'P', Items.BAKED_POTATO, 'D', Blocks.RED_MUSHROOM, 'B', Items.BOWL});
+        manager.addRecipe(new ItemStack(Blocks.MELON_BLOCK), new Object[] {"MMM", "MMM", "MMM", 'M', Items.MELON});
+        manager.addRecipe(new ItemStack(Items.BEETROOT_SOUP), new Object[] {"OOO", "OOO", " B ", 'O', Items.BEETROOT, 'B', Items.BOWL});
+        manager.addRecipe(new ItemStack(Items.MELON_SEEDS), new Object[] {"M", 'M', Items.MELON});
+        manager.addRecipe(new ItemStack(Items.PUMPKIN_SEEDS, 4), new Object[] {"M", 'M', Blocks.PUMPKIN});
+        manager.addShapelessRecipe(new ItemStack(Items.PUMPKIN_PIE), new Object[] {Blocks.PUMPKIN, Items.SUGAR, Items.EGG});
+        manager.addShapelessRecipe(new ItemStack(Items.FERMENTED_SPIDER_EYE), new Object[] {Items.SPIDER_EYE, Blocks.BROWN_MUSHROOM, Items.SUGAR});
+        manager.addShapelessRecipe(new ItemStack(Items.BLAZE_POWDER, 2), new Object[] {Items.BLAZE_ROD});
+        manager.addShapelessRecipe(new ItemStack(Items.MAGMA_CREAM), new Object[] {Items.BLAZE_POWDER, Items.SLIME_BALL});
     }
 }

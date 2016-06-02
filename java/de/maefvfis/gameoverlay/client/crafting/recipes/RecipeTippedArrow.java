@@ -1,5 +1,7 @@
 package de.maefvfis.gameoverlay.client.crafting.recipes;
 
+import javax.annotation.Nullable;
+
 import de.maefvfis.gameoverlay.client.crafting.CustomInventoryCrafting;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -10,7 +12,7 @@ import net.minecraft.world.World;
 
 public class RecipeTippedArrow implements IRecipe
 {
-    private static final ItemStack[] EMPTY_ITEMS = new ItemStack[9];
+	private static final ItemStack[] EMPTY_ITEMS = new ItemStack[9];
 
     /**
      * Used to check if a recipe matches current crafting inventory
@@ -34,12 +36,12 @@ public class RecipeTippedArrow implements IRecipe
 
                     if (i == 1 && j == 1)
                     {
-                        if (item != Items.lingering_potion)
+                        if (item != Items.LINGERING_POTION)
                         {
                             return false;
                         }
                     }
-                    else if (item != Items.arrow)
+                    else if (item != Items.ARROW)
                     {
                         return false;
                     }
@@ -57,13 +59,14 @@ public class RecipeTippedArrow implements IRecipe
     /**
      * Returns an Item that is the result of this recipe
      */
+    @Nullable
     public ItemStack getCraftingResult(CustomInventoryCrafting inv)
     {
         ItemStack itemstack = inv.getStackInRowAndColumn(1, 1);
 
-        if (itemstack != null && itemstack.getItem() == Items.lingering_potion)
+        if (itemstack != null && itemstack.getItem() == Items.LINGERING_POTION)
         {
-            ItemStack itemstack1 = new ItemStack(Items.tipped_arrow, 8);
+            ItemStack itemstack1 = new ItemStack(Items.TIPPED_ARROW, 8);
             PotionUtils.addPotionToItemStack(itemstack1, PotionUtils.getPotionFromItem(itemstack));
             PotionUtils.appendEffects(itemstack1, PotionUtils.getFullEffectsFromItem(itemstack));
             return itemstack1;
@@ -82,6 +85,7 @@ public class RecipeTippedArrow implements IRecipe
         return 9;
     }
 
+    @Nullable
     public ItemStack getRecipeOutput()
     {
         return null;

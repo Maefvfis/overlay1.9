@@ -92,7 +92,7 @@ public class Events {
 		IBlockState state = chunk.getBlockState(new BlockPos(x, y - 1, z));
 		if(state != null) {
 			Block block = chunk.getBlockState(x, y - 1, z).getBlock();
-			if (block == null || block == Blocks.air || state.getMaterial().isLiquid() || !block.canCreatureSpawn(state,world,pos,SpawnPlacementType.ON_GROUND)) {
+			if (block == null || block == Blocks.AIR || state.getMaterial().isLiquid() || !block.canCreatureSpawn(state,world,pos,SpawnPlacementType.ON_GROUND)) {
 				return false;
 			}
 		}

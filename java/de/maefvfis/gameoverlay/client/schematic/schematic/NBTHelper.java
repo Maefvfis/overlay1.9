@@ -95,7 +95,7 @@ public class NBTHelper {
     }
 
     public static TileEntity readTileEntityFromCompound(final NBTTagCompound tileEntityCompound) {
-        return TileEntity.createTileEntity(null, tileEntityCompound);
+        return TileEntity.create(tileEntityCompound);
         // TODO null ?
     }
 

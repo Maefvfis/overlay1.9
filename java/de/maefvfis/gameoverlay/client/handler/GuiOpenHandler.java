@@ -19,12 +19,12 @@ public class GuiOpenHandler {
     @SubscribeEvent(priority=EventPriority.HIGHEST, receiveCanceled=true)
     public void onEvent(GuiOpenEvent event)
     {
-    	if(event.getGui() instanceof GuiCrafting && !(event.getGui() instanceof CraftingBench)) {
-        	event.setCanceled(true);
-        	CraftingBench blubb = new CraftingBench(Minecraft.getMinecraft().thePlayer.inventory, Minecraft.getMinecraft().theWorld, 0, 0, 0);
-        	net.minecraftforge.client.event.GuiOpenEvent event2 = new net.minecraftforge.client.event.GuiOpenEvent(blubb);
-        	Minecraft.getMinecraft().displayGuiScreen(blubb);
-        	net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event2);
-        } 
+    	//if(event.getGui() instanceof GuiCrafting && !(event.getGui() instanceof CraftingBench)) {
+        //	event.setCanceled(true);
+        //	CraftingBench blubb = new CraftingBench(Minecraft.getMinecraft().thePlayer.inventory, Minecraft.getMinecraft().theWorld, 0, 0, 0);
+        //	net.minecraftforge.client.event.GuiOpenEvent event2 = new net.minecraftforge.client.event.GuiOpenEvent(blubb);
+        //	Minecraft.getMinecraft().displayGuiScreen(blubb);
+        //	net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event2);
+        //} 
     }  
 }
