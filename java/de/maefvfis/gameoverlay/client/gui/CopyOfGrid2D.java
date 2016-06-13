@@ -26,6 +26,8 @@ import net.minecraftforge.fml.server.FMLServerHandler;
 
 import org.lwjgl.opengl.GL11;
 
+import sun.security.ssl.Debug;
+
 import com.mojang.authlib.GameProfile;
 
 import de.maefvfis.gameoverlay.client.gui.ChunckViewer.choords;
@@ -58,6 +60,8 @@ public class CopyOfGrid2D  extends GuiScreen {
 	public int Y = MathHelper.floor_double(mc.thePlayer.posY);
 	public int xRel = Integer.valueOf(X & 15);
 	public int zRel = Integer.valueOf(Z & 15);
+	public float xFine = (float) ((mc.thePlayer.posX - X));
+	public float zFine = (float) ((mc.thePlayer.posZ - Z));
 	public int fullgridsizex = (chunksize*gridsize) + chunksize;
 	public int radius = (fullgridsizex/2);
 	public float transfX = screenwidth - radius - padding;
@@ -121,7 +125,10 @@ public class CopyOfGrid2D  extends GuiScreen {
 						}
 						if(textureID != -1) {
 							GlStateManager.bindTexture(textureID);
-							drawTexturedModalRect((((i1*chunksize)-radius - xRel + 8) * scaleFactor), (((i2*chunksize)-radius - zRel + 8) * scaleFactor) , 0, 0, 16*scaleFactor, 16*scaleFactor);
+							
+
+							
+							drawTexturedModalRect(((float)((i1*chunksize)-radius - xRel - xFine + 8) * scaleFactor), (((i2*chunksize)-radius - zRel - zFine + 8) * scaleFactor) , 0, 0, 16*scaleFactor, 16*scaleFactor);
 						}	
 						//break;
 					}
@@ -145,9 +152,9 @@ public class CopyOfGrid2D  extends GuiScreen {
 		    
 			    for(choords choord: choordsList) {
 				    double angle = (-MathHelper.wrapDegrees(mc.thePlayer.rotationYaw) / (180 / Math.PI));
-			    	int x2 =(int) ((X-choord.x) * Math.cos(angle) - (Z-choord.z) * Math.sin(angle));
-			    	int z2 =(int) ((X-choord.x) * Math.sin(angle) + (Z-choord.z) * Math.cos(angle));
-			    	if(!in_radius2(0, 0, 64, x2, z2)) { continue; }
+				    double x2 = ((X+xFine-choord.x) * Math.cos(angle) - (Z+zFine-choord.z) * Math.sin(angle));
+				    double z2 = ((X+xFine-choord.x) * Math.sin(angle) + (Z+zFine-choord.z) * Math.cos(angle));
+			    	if(!in_radius2(0, 0, 64, (int)x2, (int)z2)) { continue; }
 			    	
 			    	if(choord.resourcelocation == null) {
 	    				otherChoords.add(choord);
@@ -174,18 +181,18 @@ public class CopyOfGrid2D  extends GuiScreen {
 		    		mc.renderEngine.bindTexture(choord.resourcelocation);
 		    		GlStateManager.pushMatrix();
 		    			GlStateManager.scale(8F, 8F, 4F);
-		    			drawTexturedModalRect(((choord.x - 4) * scaleFactor * 2) / 8, ((choord.z - 4) * scaleFactor * 2) / 8, 32, 32, 8 * scaleFactor / 4, 8 * scaleFactor / 4);
+		    			drawTexturedModalRect((int)(((choord.x - 4) * scaleFactor * 2) / 8), (int)(((choord.z - 4) * scaleFactor * 2) / 8), 32, 32, 8 * scaleFactor / 4, 8 * scaleFactor / 4);
 		    		GlStateManager.popMatrix();
 			    }
 			    
 			    for(choords choord: otherChoords) {
 			    	double angle = (-MathHelper.wrapDegrees(mc.thePlayer.rotationYaw) / (180 / Math.PI));
-			    	int x2 =(int) ((X-choord.x) * Math.cos(angle) - (Z-choord.z) * Math.sin(angle));
-			    	int z2 =(int) ((X-choord.x) * Math.sin(angle) + (Z-choord.z) * Math.cos(angle));
+			    	double x2 = ((X+xFine-choord.x) * Math.cos(angle) - (Z+zFine-choord.z) * Math.sin(angle));
+			    	double z2 = ((X+xFine-choord.x) * Math.sin(angle) + (Z+zFine-choord.z) * Math.cos(angle));
 			    	if(Y > choord.y + 1) { mc.renderEngine.bindTexture(mobmarkerLower); }
 			    	if(Y < choord.y + 1) { mc.renderEngine.bindTexture(mobmarkerHigher); }
 			    	if(Y == choord.y || Y == choord.y + 1 || Y == choord.y + 2) { mc.renderEngine.bindTexture(mobmarkerNorm); }
-			    	drawTexturedModalRect((x2 - 4) * scaleFactor * 2, (z2 - 4) * scaleFactor * 2 , 0, 0, 16 * scaleFactor, 16* scaleFactor);
+			    	drawTexturedModalRect((int)((x2 - 4) * scaleFactor * 2), (int)((z2 - 4) * scaleFactor * 2) , 0, 0, 16 * scaleFactor, 16* scaleFactor);
 			    }
 				 
 		    GlStateManager.popMatrix();

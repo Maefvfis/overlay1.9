@@ -2,6 +2,10 @@ package de.maefvfis.gameoverlay.objects;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ConvolveOp;
+import java.awt.image.Kernel;
+import java.awt.image.RescaleOp;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,6 +17,7 @@ import javax.imageio.ImageIO;
 import de.maefvfis.gameoverlay.GameOverlay;
 import de.maefvfis.gameoverlay.client.mapcolors.ChunkRender;
 import de.maefvfis.gameoverlay.client.mapcolors.Render;
+import de.maefvfis.gameoverlay.handler.ConfigurationHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
@@ -89,30 +94,33 @@ public class ChunkImage {
 				ShadowSteps = 50;
 				SaturationSteps = 100;
 				
-				//mapcolor = addLightning(1,0);
-				//mapcolor = addLightning(0,1);
-				//mapcolor = addLightning(1,1);
+				mapcolor = addLightning(1,0);
+				mapcolor = addLightning(0,1);
+				mapcolor = addLightning(1,1);
 				
 				LightSteps = LightSteps * 2;
 				ShadowSteps = ShadowSteps * 2;
 				SaturationSteps = SaturationSteps * 2;
 				
-				//mapcolor = addLightning(2,1);
-				//mapcolor = addLightning(1,2);
+				mapcolor = addLightning(2,1);
+				mapcolor = addLightning(1,2);
 				
 				LightSteps = LightSteps * 2;
 				ShadowSteps = ShadowSteps * 2;
 				SaturationSteps = SaturationSteps * 2;
 				
-				//mapcolor = addLightning(2,0);
-				//mapcolor = addLightning(0,2);
-				//mapcolor = addLightning(2,2);
-				
-	
+				mapcolor = addLightning(2,0);
+				mapcolor = addLightning(0,2);
+				mapcolor = addLightning(2,2);
 
 				Img.setRGB(rX, rZ, mapcolor);
 			}
 		}
+		
+		
+		
+		RescaleOp op = new RescaleOp(ConfigurationHandler.minimapKontrast, ConfigurationHandler.minimapHelligkeit, null);
+		Img = op.filter(Img, Img);
 		
 		int TextureID = TextureUtil.uploadTextureImage(TextureUtil.glGenTextures(), Img);
 		ChunkList.add(new ChunkData(chunk.xPosition,chunk.zPosition,TextureID));
@@ -139,22 +147,11 @@ public class ChunkImage {
 
         y = h +1;
         
-        
-        
-        ChunkPos chunkChoord = chunk.getChunkCoordIntPair();
-		BlockPos blockN = new BlockPos(chunkChoord.getXStart() + rX + 1 ,0, chunkChoord.getZStart() + rZ);
-		BlockPos blockW = new BlockPos(chunkChoord.getXStart() + rX ,0, chunkChoord.getZStart() + rZ + 1);
-		Chunk chunkN = mc.theWorld.getChunkFromBlockCoords(blockN);
-		Chunk chunkW = mc.theWorld.getChunkFromBlockCoords(blockW);
-		if(!chunkN.isLoaded() || !chunkW.isLoaded()) { return ChunkRender.getColumnColour(GameOverlay.colorObj.blockColours, chunk, rX, j4, rZ,0,0);  }
-		
-		int yN = chunkN.getHeight(blockN);
-		int yW = chunkN.getHeight(blockW);
-        
-		return ChunkRender.getColumnColour(GameOverlay.colorObj.blockColours, chunk, rX, 70, rZ,yW,yN);
-        //return GameOverlay.colorObj.blockColours.getColour(iblockstate);
-        //return ChunkRender.getColumnColour(GameOverlay.colorObj.blockColours, chunk, rX, j4, rZ,0,0);
-
+        if(ConfigurationHandler.minimapuseTexturepackColors) {
+        	return ChunkRender.getColumnColour(GameOverlay.colorObj.blockColours, chunk, rX, j4, rZ,0,0);
+        } else {
+        	return iblockstate.getBlock().getMapColor(iblockstate).colorValue;
+        }
 	}
 	
 

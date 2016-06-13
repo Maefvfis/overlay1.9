@@ -41,5 +41,10 @@ public class MainTick {
 		if(ConfigurationHandler.myConfigShowGrid == true) {
 			new CopyOfGrid2D();
 		}
+		
+		
+		
+		
+		
 	}
 }

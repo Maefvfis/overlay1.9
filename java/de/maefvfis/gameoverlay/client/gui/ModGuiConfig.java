@@ -51,13 +51,16 @@ public class ModGuiConfig extends GuiConfig{
     	List<IConfigElement> schematic = new ConfigElement(ConfigurationHandler.configuration.getCategory("schematic")).getChildElements();
     	List<IConfigElement> lightoverlay = new ConfigElement(ConfigurationHandler.configuration.getCategory("lightoverlay")).getChildElements();
     	List<IConfigElement> minimap = new ConfigElement(ConfigurationHandler.configuration.getCategory("minimap")).getChildElements();
+    	List<IConfigElement> minimap_gerneral = new ConfigElement(ConfigurationHandler.configuration.getCategory("minimap_general")).getChildElements();
     	List<IConfigElement> test_makros = new ConfigElement(ConfigurationHandler.configuration.getCategory("test_makro")).getChildElements();
     	List<IConfigElement> test_makros_list = new ConfigElement(ConfigurationHandler.configuration.getCategory("test_makro_functions")).getChildElements();
+    	minimap_gerneral.add(new DummyCategoryElement("Entitis", Reference.MOD_ID,minimap));
+    	
     	test_makros.add(new DummyCategoryElement("Config Makros", Reference.MOD_ID,test_makros_list));
     	
         List<IConfigElement> list = new ArrayList<IConfigElement>();
         list.add(new DummyCategoryElement("Gerneral", Reference.MOD_ID, allgemein));
-        list.add(new DummyCategoryElement("Minimap", Reference.MOD_ID, minimap));
+        list.add(new DummyCategoryElement("Minimap", Reference.MOD_ID, minimap_gerneral));
         list.add(new DummyCategoryElement("Shop Export", Reference.MOD_ID, shopschilder));
         list.add(new DummyCategoryElement("Schematic Export", Reference.MOD_ID, schematic));
         list.add(new DummyCategoryElement("Light Overlay", Reference.MOD_ID, lightoverlay));

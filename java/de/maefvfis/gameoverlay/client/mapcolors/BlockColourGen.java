@@ -79,14 +79,15 @@ import net.minecraftforge.fml.common.registry.RegistryDelegate;
  
  
  
-   public static void genBlockColours(BlockColours bc)
+   public static void genBlockColours(BlockColours bc,TextureMap tM)
    {
+	   
      //Logging.log("generating block map colours from textures", new Object[0]);
      
 	   System.out.println("generating block map colours from textures");
  
  
- 	
+	//int terrainTextureId = tM.getGlTextureId();
  
  	int terrainTextureId = Minecraft.getMinecraft().renderEngine.getTexture(TextureMap.LOCATION_BLOCKS_TEXTURE).getGlTextureId();
  	
@@ -101,6 +102,8 @@ import net.minecraftforge.fml.common.registry.RegistryDelegate;
        return;
      }
      Texture terrainTexture = new Texture(terrainTextureId);
+     
+     if(terrainTexture.h == 0 || terrainTexture.w == 0) { return; }
      
      double u1Last = 0.0D;
      double u2Last = 0.0D;
@@ -166,6 +169,9 @@ import net.minecraftforge.fml.common.registry.RegistryDelegate;
            }
          }
          
+         if(block.delegate.name().toString().equals("minecraft:yellow_flower") || block.delegate.name().toString().equals("minecraft:red_flower")) {
+        	 blockColour = (blockColour & 0x00FFFFFF) + 0xFF000000;
+         }
          
          
          bc.setColour(block.delegate.name().toString(), String.valueOf(dv), blockColour);
@@ -181,6 +187,10 @@ import net.minecraftforge.fml.common.registry.RegistryDelegate;
          if(block.getMaterial(block.getDefaultState()) == Material.GRASS) {
         	 bc.setBlockType(block.delegate.name().toString(), "*", BlockColours.BlockType.GRASS);
          }
+         if(block.delegate.name().toString().equals("minecraft:tallgrass")) {
+        	 bc.setBlockType(block.delegate.name().toString(), "*", BlockColours.BlockType.GRASS);
+         }
+
          
        }
      }

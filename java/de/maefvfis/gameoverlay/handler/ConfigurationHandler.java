@@ -1,6 +1,7 @@
 package de.maefvfis.gameoverlay.handler;
 
 
+import de.maefvfis.gameoverlay.GameOverlay;
 import de.maefvfis.gameoverlay.client.renderer.HeadRenderer;
 import de.maefvfis.gameoverlay.client.settings.Keybindings;
 import de.maefvfis.gameoverlay.reference.EntityGridOptions;
@@ -128,6 +129,11 @@ public class ConfigurationHandler {
 	public static boolean EntitySkelett = true;
 	public static boolean EntityWitherSkelett = true;
 	
+	public static float minimapKontrast = 1;
+	public static float minimapHelligkeit = 0;
+	public static boolean minimapuseTexturepackColors = true;
+	public static boolean minimapuseDaylightShading = false;
+	
 	// Light Overlay Options ENde
 	public static boolean myConfigLogShops = false;
 	public static boolean myConfigHighLightSpawner = false;
@@ -211,7 +217,10 @@ public class ConfigurationHandler {
     	EntityWitherSkelett = configuration.getBoolean("WitherSkelett", "minimap", EntityWitherSkelett, "Show on Minimap?");
 
     	
-    	
+    	minimapKontrast = (float)configuration.get("minimap_general", "Kontrast:", minimapKontrast,"Default: 1", 0.5D, 2D ).setConfigEntryClass(getSliderClass()).getDouble();
+    	minimapHelligkeit = (float)configuration.get("minimap_general", "Helligkeit:", minimapHelligkeit,"Default: 0", -50D, 50D ).setConfigEntryClass(getSliderClass()).getDouble();
+    	minimapuseTexturepackColors = configuration.getBoolean("TexturePack Farben", "minimap_general", minimapuseTexturepackColors, "Verwende farben aus Texturepack");
+    	minimapuseDaylightShading = configuration.getBoolean("Nacht auf Minimap", "minimap_general", minimapuseDaylightShading, "auf der Minimap wird es auch nacht");
     	
     	
     	// Makros test

@@ -31,7 +31,15 @@ public class DayTime {
         }
 	}
 	
-	
+	public static int getDayLightValue(Long ltime) {
+		int value = 0;
+		int h = (int) (((ltime + 6000) % 24000) / 1000);
+		if(h < 7 || h > 21) { return 0; }
+		if(h > 9 && h < 18) { return 15; }
+		if(h < 10) { return (h-6)*3; }
+		if(h > 17) { return 15 - ((h-17) * 3); }
+		return 15; 
+	}
 	
 	
 }

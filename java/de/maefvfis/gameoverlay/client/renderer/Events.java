@@ -1,5 +1,6 @@
 package de.maefvfis.gameoverlay.client.renderer;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,9 +68,12 @@ public class Events {
 							if (!this.frustrum.isBoundingBoxInFrustum(new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1))) {
 								continue;
 							}
-
-							if (getCanSpawnHere(world, x, y, z)) {
-								SPAWN_LIST.add(new Vector4i(x, y, z, 1));
+							try {
+								if (getCanSpawnHere(world, x, y, z)) {
+									SPAWN_LIST.add(new Vector4i(x, y, z, 1));
+								}
+							} catch (Exception e) {
+								
 							}
 						}
 					}
@@ -86,8 +90,11 @@ public class Events {
 	private boolean getCanSpawnHere(World world, int x, int y, int z) {
 		Chunk chunk = Minecraft.getMinecraft().theWorld.getChunkFromBlockCoords(new BlockPos(x, 0, z));
 		if(!chunk.isLoaded()) { return false; }
-		if(chunk.getLightFor(EnumSkyBlock.BLOCK, new BlockPos(x & 15, y+1, z & 15)) >= 8) { return false; }
-		
+		try {
+			if(chunk.getLightFor(EnumSkyBlock.BLOCK, new BlockPos(x & 15, y+1, z & 15)) >= 8) { return false; }
+		} catch (Exception e) {
+			
+		}
 		BlockPos pos = new BlockPos(x, y - 1, z);
 		IBlockState state = chunk.getBlockState(new BlockPos(x, y - 1, z));
 		if(state != null) {

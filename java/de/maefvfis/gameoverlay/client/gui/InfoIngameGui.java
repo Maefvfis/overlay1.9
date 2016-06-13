@@ -8,10 +8,14 @@ import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.network.play.INetHandlerPlayClient;
+import net.minecraft.network.play.server.SPacketPlayerListHeaderFooter;
+import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.chunk.Chunk;
+import net.minecraftforge.fml.client.FMLClientHandler;
 
 import org.lwjgl.opengl.GL11;
 
@@ -60,7 +64,13 @@ public class InfoIngameGui extends GuiScreen {
 		if (mc.theWorld != null && mc.theWorld.isBlockLoaded(new BlockPos(X, Y, Z)))
         {
 			
-			fontRender.drawStringWithShadow("Light: " + chunk.getLightFor(EnumSkyBlock.BLOCK, new BlockPos(X & 15, Y, Z & 15)) + " / " + chunk.getLightFor(EnumSkyBlock.SKY, new BlockPos(X & 15, Y, Z & 15)) + " | " + GammaBright.getGammaStatus(), 5,currentY, 0xffffff);
+			int lY = Y;
+			if(lY<1) {
+				lY = 1;
+			} else if(lY > 255) {
+				lY = 255;
+			}
+			fontRender.drawStringWithShadow("Light: " + chunk.getLightFor(EnumSkyBlock.BLOCK, new BlockPos(X & 15, lY, Z & 15)) + " / " + chunk.getLightFor(EnumSkyBlock.SKY, new BlockPos(X & 15, lY, Z & 15)) + " | " + GammaBright.getGammaStatus(), 5,currentY, 0xffffff);
 			currentY += 10;
         }
 		
@@ -79,4 +89,45 @@ public class InfoIngameGui extends GuiScreen {
 		
 
 	}
+	
+   public static String getWorldName()
+   {
+		
+     String worldName;
+     if (Minecraft.getMinecraft().isSingleplayer())
+     {
+       IntegratedServer server = Minecraft.getMinecraft().getIntegratedServer();
+       worldName = server != null ? server.getWorldName() : "sp_world";
+     } else { 
+		 if (Minecraft.getMinecraft().isConnectedToRealms()) {
+		  worldName = "Realms";
+		   }
+		   else
+		   {
+			   if(Minecraft.getMinecraft().getConnection() != null) {
+				   SPacketPlayerListHeaderFooter test = new SPacketPlayerListHeaderFooter();
+				   test.processPacket(Minecraft.getMinecraft().getConnection());
+				   if(test.getHeader() != null) {
+					   worldName = test.getHeader().getUnformattedText();
+				   } else {
+					   worldName = "Not loaded";
+				   }
+			   } else {
+				   worldName = Minecraft.getMinecraft().getCurrentServerData().getNBTCompound().toString();
+			   }
+			   
+		     //worldName = Minecraft.getMinecraft().getCurrentServerData()..getNBTCompound().toString();
+		     if (worldName.indexOf(":") == -1)
+			 {
+				worldName = worldName + "_25565";
+			 }
+			 else
+			 {
+				 worldName = worldName.replace(":", "_");
+		     }
+		  }
+     	}
+     return worldName;
+   }
+   
 }

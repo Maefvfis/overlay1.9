@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.io.File;
 
 import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.resources.ResourcePackListEntry;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -14,18 +16,20 @@ public class ColorObj {
 	
 	private boolean notLoadedTextures = true; 
 	public BlockColours blockColours = null;
+	public TextureMap tM = null;
 	
 	public void reloadBlockColours()
 	   {
 		 this.blockColours = null;
 	     BlockColours bc = new BlockColours();
-	     BlockColourGen.genBlockColours(bc);
+	     BlockColourGen.genBlockColours(bc,tM);
 	     this.blockColours = bc;
 	   }
    @SubscribeEvent
    public void onTextureStitchEventPost(TextureStitchEvent.Post event)
    {
-    	 System.out.println("awawdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!");
+	   tM = event.getMap();
+       System.out.println("awawdaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!");
        reloadBlockColours();
      
    }
@@ -35,7 +39,7 @@ public class ColorObj {
       {
         if (((event.getGui() instanceof GuiMainMenu)) && notLoadedTextures)
         {
-          //reloadBlockColours();
+          reloadBlockColours();
           notLoadedTextures = false;
         }
    }

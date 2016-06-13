@@ -1,9 +1,13 @@
 package de.maefvfis.gameoverlay.client.mapcolors;
 
 
- import net.minecraft.block.state.IBlockState;
+ import de.maefvfis.gameoverlay.handler.ConfigurationHandler;
+import de.maefvfis.gameoverlay.objects.DayTime;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
  
@@ -95,10 +99,10 @@ import net.minecraft.world.chunk.Chunk;
      }
      
      //double heightShading = getHeightShading(y, heightW, heightN);
-     int lightValue = getLightValue(chunk,x, y + 1, z);
+     int lightValue = 4;//getLightValue(chunk,x, y + 1, z);
      double lightShading = lightValue / 15.0D;
      //double shading = (heightShading + 1.0D) * lightShading;
-     double shading = ( 1.0D) * lightShading;
+     double shading = ( 1.0D) * (lightShading);
  
      r = Math.min(Math.max(0.0D, r * shading), 1.0D);
      g = Math.min(Math.max(0.0D, g * shading), 1.0D);
@@ -158,16 +162,16 @@ import net.minecraft.world.chunk.Chunk;
        }
      }
      
-     double heightShading = getHeightShading(y, heightW, heightN);
-     int lightValue = getLightValue(chunk,x, y + 1, z);
-     double lightShading = lightValue / 15.0D;
-     double shading = (heightShading + 1.0D) * lightShading;
-     
- 
-     r = Math.min(Math.max(0.0D, r * shading), 1.0D);
-     g = Math.min(Math.max(0.0D, g * shading), 1.0D);
-     b = Math.min(Math.max(0.0D, b * shading), 1.0D);
-     
+     if(ConfigurationHandler.minimapuseDaylightShading) {
+	     int lightValue = getLightValue(chunk,x, y + 1, z);
+	     int dayLightValue = DayTime.getDayLightValue(Minecraft.getMinecraft().theWorld.getWorldInfo().getWorldTime());
+	     
+	     double lightShading = Math.max(lightValue,dayLightValue) / 15.0D;
+	     lightShading = Math.max(lightShading, 0.4D);
+	     r = Math.min(Math.max(0.0D, r * lightShading), 1.0D);
+	     g = Math.min(Math.max(0.0D, g * lightShading), 1.0D);
+	     b = Math.min(Math.max(0.0D, b * lightShading), 1.0D);
+     }
  
  
      return (y & 0xFF) << 24 | ((int)(r * 255.0D) & 0xFF) << 16 | ((int)(g * 255.0D) & 0xFF) << 8 | (int)(b * 255.0D) & 0xFF;
@@ -274,7 +278,8 @@ import net.minecraft.world.chunk.Chunk;
    }
    
    public static int getLightValue(Chunk chunk,int x,int y,int z) {
-	   return 15;
+	   
+	   return chunk.getLightFor(EnumSkyBlock.BLOCK, new BlockPos(x, y, z));
 	   
    }
    

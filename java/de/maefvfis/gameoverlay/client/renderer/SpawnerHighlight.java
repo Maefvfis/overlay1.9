@@ -68,7 +68,7 @@ public class SpawnerHighlight {
 				
 				for(choords choord: EntityCount) {
 					
-					GL11.glTranslatef(-PlayerPosition.x +0.5F + choord.x, -PlayerPosition.y +0.5F + choord.y, -PlayerPosition.z +0.5F + choord.z);
+					GL11.glTranslatef(-PlayerPosition.x +0.5F + MathHelper.floor_double(choord.x), -PlayerPosition.y +0.5F + MathHelper.floor_double(choord.y), -PlayerPosition.z +0.5F + MathHelper.floor_double(choord.z));
 					GL11.glRotatef(90F, 1, 0, 0);
 					switch(i%7) {
 						case 0: GL11.glColor4f(1f,1f,1f,this.alpha);
@@ -90,7 +90,7 @@ public class SpawnerHighlight {
 					
 				    GL11.glCallList(WireSphere.sphereIdOutside);
 				    GL11.glRotatef(-90F, 1, 0, 0);
-				    GL11.glTranslatef(-(-PlayerPosition.x +0.5F + choord.x), -(-PlayerPosition.y +0.5F + choord.y), -(-PlayerPosition.z +0.5F + choord.z));
+				    GL11.glTranslatef(-(-PlayerPosition.x +0.5F + MathHelper.floor_double(choord.x)), -(-PlayerPosition.y +0.5F + MathHelper.floor_double(choord.y)), -(-PlayerPosition.z +0.5F + MathHelper.floor_double(choord.z)));
 				    i = i + 1;
 				}
 			}

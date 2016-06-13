@@ -34,7 +34,6 @@ public class Texture
   {
     this(w, h, fillColour, 9729, 9728, 33071);
   }
-  
 
   public Texture(int id)
   {
@@ -42,10 +41,13 @@ public class Texture
     bind();
     this.w = Render.getTextureWidth();
     this.h = Render.getTextureHeight();
-    this.pixelBuf = allocateDirectIntBuffer(this.w * this.h);
-    getPixelsFromExistingTexture();
-    //Logging.log("created new MwTexture from GL texture id %d (%dx%d) (%d pixels)", new Object[] { Integer.valueOf(this.id), Integer.valueOf(this.w), Integer.valueOf(this.h), Integer.valueOf(this.pixelBuf.limit()) });
-    System.out.println("Texture id: "+Integer.valueOf(this.id)+" w,h:"+Integer.valueOf(this.w)+","+Integer.valueOf(this.h));
+    
+	    this.pixelBuf = allocateDirectIntBuffer(this.w * this.h);
+	if(this.w != 0 && this.h != 0) { 
+	    getPixelsFromExistingTexture();
+	    //Logging.log("created new MwTexture from GL texture id %d (%dx%d) (%d pixels)", new Object[] { Integer.valueOf(this.id), Integer.valueOf(this.w), Integer.valueOf(this.h), Integer.valueOf(this.pixelBuf.limit()) });
+	    System.out.println("Texture id: "+Integer.valueOf(this.id)+" w,h:"+Integer.valueOf(this.w)+","+Integer.valueOf(this.h));
+    }
   }
   public static IntBuffer allocateDirectIntBuffer(int size)
    {

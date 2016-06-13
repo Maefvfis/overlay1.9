@@ -90,7 +90,7 @@ public class ChunckViewer {
             		if(!(((TileEntityChest) tileentity).getChestType() == BlockChest.Type.TRAP) && IsWither) continue;
             		if((((TileEntityChest) tileentity).getChestType() == BlockChest.Type.TRAP) && !IsWither) continue;
             		TileEntityChest chest = (TileEntityChest) tileentity;
-                	result.add(new choords(MathHelper.floor_double(chest.getPos().getX()),MathHelper.floor_double(chest.getPos().getZ()),MathHelper.floor_double(chest.getPos().getY()),null,false));
+                	result.add(new choords(chest.getPos().getX(),chest.getPos().getZ(),chest.getPos().getY(),null,false));
             	} else {
             		TileEntityMobSpawner Spawner = (TileEntityMobSpawner)tileentity;
             		String SpawnerName = Spawner.getSpawnerBaseLogic().getCachedEntity().getName();
@@ -112,7 +112,7 @@ public class ChunckViewer {
 						l = HeadRenderer.unknown;
 					}
 
-            		result.add(new choords(MathHelper.floor_double(Spawner.getPos().getX()),MathHelper.floor_double(Spawner.getPos().getZ()),MathHelper.floor_double(Spawner.getPos().getY()),l,false));
+            		result.add(new choords(Spawner.getPos().getX(),Spawner.getPos().getZ(),Spawner.getPos().getY(),l,false));
             	}
             }
         }
@@ -131,14 +131,14 @@ public class ChunckViewer {
 				continue;
 			}
 			if(HeadRenderer.headMap.containsKey(o.getClass())) {
-				result.add( new choords(MathHelper.floor_double(((Entity)o).posX),MathHelper.floor_double(((Entity)o).posZ),MathHelper.floor_double(((Entity)o).posY),HeadRenderer.headMap.get(o.getClass()),false));
+				result.add( new choords(((Entity)o).posX,((Entity)o).posZ,((Entity)o).posY,HeadRenderer.headMap.get(o.getClass()),false));
 				continue;
 			}
 			if(o instanceof EntitySkeleton) {
 				if(((EntitySkeleton)o).getSkeletonType() == 1 && ConfigurationHandler.EntityWitherSkelett) {
-					result.add( new choords(MathHelper.floor_double(((Entity)o).posX),MathHelper.floor_double(((Entity)o).posZ),MathHelper.floor_double(((Entity)o).posY),HeadRenderer.wither_skelett,false));
+					result.add( new choords(((Entity)o).posX,((Entity)o).posZ,((Entity)o).posY,HeadRenderer.wither_skelett,false));
 				} else if(ConfigurationHandler.EntitySkelett) {
-					result.add( new choords(MathHelper.floor_double(((Entity)o).posX),MathHelper.floor_double(((Entity)o).posZ),MathHelper.floor_double(((Entity)o).posY),HeadRenderer.skelett,false));
+					result.add( new choords(((Entity)o).posX,((Entity)o).posZ,((Entity)o).posY,HeadRenderer.skelett,false));
 				}
 				continue;
 			}
@@ -154,7 +154,7 @@ public class ChunckViewer {
 		if (map.containsKey(Type.SKIN)) {
 			resourcelocation = minecraft.getSkinManager().loadSkin((MinecraftProfileTexture)map.get(Type.SKIN), Type.SKIN);
 		}
-		return new choords(MathHelper.floor_double(p.posX),MathHelper.floor_double(p.posZ),MathHelper.floor_double(p.posY),resourcelocation,true);
+		return new choords(p.posX,p.posZ,p.posY,resourcelocation,true);
 	}
 	
 	
@@ -166,7 +166,7 @@ public class ChunckViewer {
 			if (instance.isInstance(o) && is_aligned(chunk,((Entity) o).getPosition())) {
 				if(IsWither && instance.isInstance(o)) {
 					if(((EntitySkeleton) o).getSkeletonType() == 1) {
-						result.add(new choords(MathHelper.floor_double(((EntitySkeleton) o).posX),MathHelper.floor_double(((EntitySkeleton) o).posZ),MathHelper.floor_double(((EntitySkeleton) o).posY),null,false));
+						result.add(new choords(((EntitySkeleton) o).posX,((EntitySkeleton) o).posZ,((EntitySkeleton) o).posY,null,false));
 					}
 				} else if(o instanceof EntityPlayer) {
 					if(!whitelist.contains(((EntityPlayer) o).getName()) && Minecraft.getMinecraft().thePlayer.getName() != ((EntityPlayer) o).getName()) {
@@ -178,25 +178,25 @@ public class ChunckViewer {
 	                    {
 							resourcelocation = minecraft.getSkinManager().loadSkin((MinecraftProfileTexture)map.get(Type.SKIN), Type.SKIN);
 	                    }
-						result.add(new choords(MathHelper.floor_double(((EntityPlayer) o).posX),MathHelper.floor_double(((EntityPlayer) o).posZ),MathHelper.floor_double(((EntityPlayer) o).posY),resourcelocation,true));
+						result.add(new choords(((EntityPlayer) o).posX,((EntityPlayer) o).posZ,((EntityPlayer) o).posY,resourcelocation,true));
 					}
 				} else if(o instanceof EntityArmorStand) {
 					if(((EntityArmorStand) o).getHeldItem(EnumHand.MAIN_HAND) != null && ((EntityArmorStand) o).getHeldItem(EnumHand.OFF_HAND) != null) {
 						if(((EntityArmorStand) o).getHeldItem(EnumHand.MAIN_HAND).getItem() == Item.getItemById(383) || ((EntityArmorStand) o).getHeldItem(EnumHand.OFF_HAND).getItem() == Item.getItemById(383)){
-							result.add(new choords(MathHelper.floor_double(((Entity) o).posX),MathHelper.floor_double(((Entity) o).posZ),MathHelper.floor_double(((Entity) o).posY),null,false));
+							result.add(new choords(((Entity) o).posX,((Entity) o).posZ,((Entity) o).posY,null,false));
 						}
 					}
 				} else if(o instanceof EntityItem) {
 					if(EntityGridOptions.IsActiveEntity(EntityGridOptions.Crates)) {
-						if(((EntityItem)o).getEntityItem().getDisplayName().equals("Drop1Crate5")) {
-							result.add(new choords(MathHelper.floor_double(((Entity) o).posX),MathHelper.floor_double(((Entity) o).posZ),MathHelper.floor_double(((Entity) o).posY),null,false));
+						if(((EntityItem)o).getEntityItem().getDisplayName().contains("Crate5")) {
+							result.add(new choords(((Entity) o).posX,((Entity) o).posZ,((Entity) o).posY,null,false));
 						}
 					} else {
-						result.add(new choords(MathHelper.floor_double(((Entity) o).posX),MathHelper.floor_double(((Entity) o).posZ),MathHelper.floor_double(((Entity) o).posY),null,false));
+						result.add(new choords(((Entity) o).posX,((Entity) o).posZ,((Entity) o).posY,null,false));
 					}
 					
 				} else {
-					result.add(new choords(MathHelper.floor_double(((Entity) o).posX),MathHelper.floor_double(((Entity) o).posZ),MathHelper.floor_double(((Entity) o).posY),null,false));
+					result.add(new choords(((Entity) o).posX,((Entity) o).posZ,((Entity) o).posY,null,false));
 				}
 			}
 		}
@@ -206,19 +206,27 @@ public class ChunckViewer {
 	
 	public class choords {
 		private final ResourceLocation Steve = new ResourceLocation("textures/entity/steve.png");
-		public int x;
-		public int z;
-		public int y;
+		public double x;
+		public double z;
+		public double y;
 		public ResourceLocation resourcelocation;
 		public boolean isPlayer;
 		
-		public choords(int x1, int z1, int y1, ResourceLocation resourcelocation2,boolean isPlayer) {
+		public int intX;
+		public int intY;
+		
+		public choords(double x1, double z1, double y1, ResourceLocation resourcelocation2,boolean isPlayer) {
 			this.x = x1;
 			this.z = z1;
 			this.y = y1;
+			this.intX = (int) x1;
+			this.intY = (int) y1;
 			this.resourcelocation = resourcelocation2;
 			this.isPlayer = isPlayer;
 		}
+		
+		
+		
 	}
 	
 	public boolean is_aligned(Chunk chunk, BlockPos entity) {
